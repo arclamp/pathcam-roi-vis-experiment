@@ -53,16 +53,26 @@ async function loadData() {
   return mappedData;
 }
 
-function draw() {
-  ctx.fillStyle = 'rgb(200 0 0)';
-  ctx.fillRect(10, 10, 50, 50);
+function drawDots(data) {
+  const midpoint = (rect) => ({
+    x: rect.x + 0.5 * rect.w,
+    y: rect.y + 0.5 * rect.h,
+  });
 
-  ctx.fillStyle = 'rgb(0 0 200 / 50%)';
-  ctx.fillRect(30, 30, 50, 50);
+  for ([i, d] of data.entries()) {
+    mid = midpoint(d);
+
+    ctx.beginPath()
+    const red = (i / data.length) * 255;
+    const blue = 255 - red;
+    ctx.fillStyle = `rgb(${red}, 0, ${blue})`;
+    ctx.ellipse(mid.x, mid.y, 1, 1, 0, 0, 2 * Math.PI);
+    ctx.fill();
+  }
 }
 
 (async () => {
-  draw();
-
   const data = await loadData();
+
+  drawDots(data);
 })();
