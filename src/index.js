@@ -61,18 +61,30 @@ function drawDots(data) {
 
   for ([i, d] of data.entries()) {
     mid = midpoint(d);
-
-    ctx.beginPath()
     const red = (i / data.length) * 255;
     const blue = 255 - red;
+
+    ctx.beginPath()
     ctx.fillStyle = `rgb(${red}, 0, ${blue})`;
     ctx.ellipse(mid.x, mid.y, 1, 1, 0, 0, 2 * Math.PI);
     ctx.fill();
   }
 }
 
+function drawRects(data) {
+  for ([i, d] of data.entries()) {
+    const red = (i / data.length) * 255;
+    const blue = 255 - red;
+
+    ctx.strokeStyle = `rgb(${red}, 0, ${blue})`;
+    ctx.strokeRect(d.x, d.y, d.w, d.h);
+  }
+
+}
+
 (async () => {
   const data = await loadData();
 
   drawDots(data);
+  drawRects(data);
 })();
