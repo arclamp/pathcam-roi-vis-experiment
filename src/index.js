@@ -82,9 +82,46 @@ function drawRects(data) {
 
 }
 
-(async () => {
-  const data = await loadData();
+const callbacks = {
+  dots: () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawDots(data);
+  },
 
-  drawDots(data);
-  drawRects(data);
+  rects: () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawRects(data);
+  },
+
+  'dot-rects': () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawDots(data);
+    drawRects(data);
+  },
+};
+
+function installSelectHandler() {
+  const menu = document.getElementById('vis-menu');
+  menu.onchange = (event) => {
+    const selected = event.target.value;
+    const divs = document.getElementsByClassName('settings');
+    const targetDiv = document.getElementById(selected);
+
+    // Activate the "settings" div for the chosen vis.
+    for (const div of divs) {
+      div.style.display = 'none';
+    }
+    targetDiv.style.display = null;
+
+    // Perform the vis work for the chosen mode.
+    callbacks[selected]();
+  };
+}
+
+let data = [];
+
+(async () => {
+  data = await loadData();
+
+  installSelectHandler();
 })();

@@ -14,8 +14,31 @@
     </head>
 
     <body>
-        <canvas id="canvas" width="400" height="400">
-            Canvas for drawing the experiment
-        </canvas>
+        <div>
+            <canvas id="canvas" width="400" height="400">
+                Canvas for drawing the experiment
+            </canvas>
+        </div>
+
+        <div>
+            <select name="vis" id="vis-menu">
+                <option value="">--Pick a visualization--</option>
+                <option value="dots">Visible area midpoint</option>
+                <option value="rects">Visible area</option>
+                <option value="dot-rects">Visible area + midpoint</option>
+            </select>
+        </div>
+
+        <div style="display: none" class=settings id=dots>
+            <h3>Dots</h3>
+        </div>
+
+        <div style="display: none" class=settings id=rects>
+            <h3>Rects</h3>
+        </div>
+
+        <div style="display: none" class=settings id=dot-rects>
+            <h3>Rects+Dots</h3>
+        </div>
     </body>
 </html>
