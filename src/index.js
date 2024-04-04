@@ -41,7 +41,7 @@ async function loadData() {
   const transformX = (x) => (x - bounds.x0) * xSquish;
   const transformY = (y) => (y - bounds.y0) * ySquish;
 
-  mappedData = data.map((e) => ({
+  const mappedData = data.map((e) => ({
     x: transformX(e.visibleArea.bl.x),
     y: transformY(e.visibleArea.bl.y),
     w: transformX(e.visibleArea.br.x - e.visibleArea.bl.x),
@@ -59,8 +59,8 @@ function drawDots(data) {
     y: rect.y + 0.5 * rect.h,
   });
 
-  for ([i, d] of data.entries()) {
-    mid = midpoint(d);
+  for (const [i, d] of data.entries()) {
+    const mid = midpoint(d);
     const red = (i / data.length) * 255;
     const blue = 255 - red;
 
@@ -72,7 +72,7 @@ function drawDots(data) {
 }
 
 function drawRects(data) {
-  for ([i, d] of data.entries()) {
+  for (const [i, d] of data.entries()) {
     const red = (i / data.length) * 255;
     const blue = 255 - red;
 
