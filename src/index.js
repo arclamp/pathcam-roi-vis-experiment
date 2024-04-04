@@ -46,6 +46,7 @@ async function loadData() {
     y: transformY(e.visibleArea.bl.y),
     w: transformX(e.visibleArea.br.x - e.visibleArea.bl.x),
     h: transformX(e.visibleArea.bl.y - e.visibleArea.tl.y),
+    z: e.zoom,
   }));
 
   console.log('mapped data', mappedData);
@@ -97,6 +98,16 @@ const callbacks = {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawDots(data);
     drawRects(data);
+  },
+
+  zoom: () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = 0.05;
+
+    for (const [i, d] of data.entries()) {
+      ctx.fillStyle = d.z === 3 ? 'red' : 'green';
+      ctx.fillRect(d.x, d.y, d.w, d.h);
+    }
   },
 };
 
